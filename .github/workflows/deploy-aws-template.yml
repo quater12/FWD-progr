@@ -1,0 +1,15 @@
+# Шаблон під лаб. 8: підключіть свій AWS акаунт, секрети та ціль (ECS, Elastic Beanstalk, EC2 + Docker).
+# Рекомендації: GitHub Environments + OIDC (aws-actions/configure-aws-credentials), образ у ECR.
+name: Deploy (template)
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Placeholder
+        run: |
+          echo "Додайте кроки: build/push Docker image, міграції Alembic, деплой на AWS."

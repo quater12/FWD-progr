@@ -1,0 +1,73 @@
+# Lab 2: Docker Setup and Installed Libraries
+
+## Docker Compose Configuration Used
+
+File: `docker-compose.yml`
+
+Services:
+1. PostgreSQL 15 (Alpine Linux)
+   - Container: fastapi_postgres
+   - Port: 5432
+   - Health Check: Enabled
+
+2. FastAPI Application
+   - Container: fastapi_app
+   - Port: 8000
+   - Build: Custom Dockerfile
+   - Volume Mount: Current directory -> /app
+   - Auto-reload: Enabled
+
+## Environment Variables
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+POSTGRES_DB=fastapi_db
+SECRET_KEY=your-secret-key-change-this
+
+## Installed Libraries in FastAPI Container
+
+The following packages are installed via Poetry:
+
+### Core Dependencies
+- fastapi (0.135.3-0.135.9)
+- uvicorn (0.44.0-0.44.9)
+- pydantic (2.12.5-2.99.0)
+- pydantic-settings (2.0.0+)
+
+### Database
+- sqlalchemy (2.0.49-2.99.9)
+- psycopg2-binary (2.9.11-2.99.9)
+- alembic (1.18.4-1.99.9)
+
+### Authentication
+- pyjwt (2.12.1-2.99.9)
+
+### Testing
+- pytest (9.0.3-9.99.9)
+
+### System Dependencies
+- python:3.11-slim
+- gcc (C compiler for binary packages)
+- postgresql-client (for psql commands)
+
+## Health Checks Implemented
+
+1. FastAPI Container
+   - Endpoint: /health
+   - Interval: 30 seconds
+   - Timeout: 10 seconds
+
+2. PostgreSQL Container
+   - Command: pg_isready
+   - Interval: 10 seconds
+   - Timeout: 5 seconds
+
+## Generated Files
+- Dockerfile: Contains FastAPI setup with auto-reload
+- docker-compose.yml: Multi-container orchestration
+- .env: Environment variable configuration
+- LAB2_COMMANDS.md: This documentation
+
+## Network Configuration
+- Network: fastapi_network
+- Driver: bridge
+- Containers can communicate internally using service names (e.g., postgres:5432)
